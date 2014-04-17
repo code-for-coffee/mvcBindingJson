@@ -1,0 +1,80 @@
+﻿@model bindingJSON.Squirrel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Index</title>
+</head>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		// when the DOM has fully loaded...
+		$("#btnSubmit").bind("click", function() {
+			var onEventLaunchSquirrel = new postSquirrel();
+  			onEventLaunchSquirrel.launchSquirrel();
+		});
+	});
+	function postSquirrel() {
+		this.launchSquirrel = function() {
+			
+			// fetch values from input
+			var name = $("Name").val();
+			var age = $("Age").val();
+			var acorns = $("Acorns").val();
+			var gender = $("Gender").val();
+			var hobby = $("Hobby").val();
+			
+			// build json object
+			var squirrel = {
+				Name: name,
+				Age: age,
+				Acorns: acorns,
+				Gender: gender,
+				Hobby: hobby
+			};
+
+			 $.ajax({
+		        type: "POST",
+		        url: "home/PostSquirrel",
+		        traditional: true,
+		        contentType: 'application/json; charset=utf-8',
+		        data: JSON.stringify(squirrel),
+		        success: function (data) { console.log(data) },
+		        error: function (data) { console.log(data) }		        
+    		});
+		
+		}
+	}
+	
+</script>
+<body>
+
+<header>
+	<hgroup>
+		<h1>oh hey, a squirrel!</h1>
+		<h3>we should interview it!</h3>
+	</hgroup>
+</header>
+
+<section>
+	<p>If the squirrel cooperates, record their information and send it to our server.</p>
+	
+	<p><input type="text" required="required" id="Name" placeholder="Enter the squirrel's name" /></p>
+	<p><input type="number" id="Age" placeholder="squirrel's age (optional)" /></p>
+	<p><input type="number" required="required" id="Name" placeholder="How many acorns do they own?" /></p>
+	<p><input type="number" required="required" id="Name" placeholder="M or F? (single letter only)" size="1" /></p>
+	<p><input type="string" required="required" id="Hobby" placeholder="How many acorns do they own?" /></p>
+	
+	<p><input id="btnSubmit" type="button" value="launch the squirrel through the internet!" /></p>
+	
+	<div id="status"></div>
+
+</section>
+
+</body>
+</html>
+
