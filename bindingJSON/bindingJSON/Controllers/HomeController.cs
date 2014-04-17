@@ -30,13 +30,7 @@ namespace bindingJSON.Controllers
 		#region privateHelpers
 		private Boolean saveSquirrel(Squirrel incomingSquirrel) 
 		{
-			if (!incomingSquirrel.Age) {
-				// do something...
-				return false;
-			} else {
-				// do something positive!
-				return true;
-			}
+			return false;
 		}
 		#endregion
     }
